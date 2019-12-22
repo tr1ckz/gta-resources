@@ -22,7 +22,7 @@ end)
 
 ESX.RegisterServerCallback('disc-mdt:getOfficerReports', function(source, cb)
     local player = ESX.GetPlayerFromId(source)
-    MySQL.Async.fetchAll([[SELECT reports.*, concat(ou.FIRSTNAME ,' ' ,OU.LASTNAME) as officerName, concat(pu.FIRSTNAME ,' ' ,pu.LASTNAME) as playerName FROM disc_mdt_reports reports
+    MySQL.Async.fetchAll([[SELECT reports.*, concat(ou.FIRSTNAME ,' ' ,ou.LASTNAME) as officerName, concat(pu.FIRSTNAME ,' ' ,pu.LASTNAME) as playerName FROM disc_mdt_reports reports
                             join users ou on ou.identifier = reports.OFFICERIDENTIFIER
                             join users pu on pu.identifier = reports.PLAYERIDENTIFIER
                             where reports.OFFICERIDENTIFIER=@identifier order by date, time LIMIT 50]], {
@@ -36,7 +36,7 @@ ESX.RegisterServerCallback('disc-mdt:getReportsForPlayer', function(source, cb, 
     MySQL.Async.fetchAll([[SELECT reports.*,
                             DATE_FORMAT(reports.date, '%d-%m-%Y') as stringDate,
                             DATE_FORMAT(reports.time, '%H:%i') as stringTime,
-                            concat(ou.FIRSTNAME ,' ' ,OU.LASTNAME) as officerName, concat(pu.FIRSTNAME ,' ' ,pu.LASTNAME) as playerName FROM disc_mdt_reports reports
+                            concat(ou.FIRSTNAME ,' ' ,ou.LASTNAME) as officerName, concat(pu.FIRSTNAME ,' ' ,pu.LASTNAME) as playerName FROM disc_mdt_reports reports
                             join users ou on ou.identifier = reports.OFFICERIDENTIFIER
                             join users pu on pu.identifier = reports.PLAYERIDENTIFIER
                             where reports.PLAYERIDENTIFIER=@identifier order by date DESC, time DESC LIMIT 5]], {
